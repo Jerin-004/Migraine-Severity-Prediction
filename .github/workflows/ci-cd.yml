@@ -31,7 +31,7 @@ jobs:
 
       - name: Train model
         run: |
-          python src/train_model.py
+          python ./src/train_model.py
           echo "✅ Model trained successfully."
 
       - name: Log in to Docker Hub
