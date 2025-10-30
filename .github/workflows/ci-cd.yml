@@ -71,4 +71,5 @@ jobs:
             echo "🌐 Starting Flask App..."
             sudo docker run -d --name migraine-app -p 8080:8080 $IMAGE_NAME:$IMAGE_TAG
 
+            
             echo "✅ Flask App (8080) and MLflow UI (5000) running successfully."
