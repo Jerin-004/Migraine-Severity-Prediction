@@ -29,11 +29,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt mlflow gunicorn
 
-      # - name: Train model
-      #   run: |
-      #     python src/train_model.py
-      #     echo "✅ Model trained successfully."
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -51,26 +46,33 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: IMAGE_NAME,IMAGE_TAG
           script: |
+            set -e
+            echo "🚀 Starting deployment on EC2..."
+            echo "Using image: $IMAGE_NAME:$IMAGE_TAG"
+
             sudo apt-get update -y
             sudo apt-get install -y docker.io
             sudo systemctl start docker
+
+            echo "🧩 Pulling latest image..."
             sudo docker pull $IMAGE_NAME:$IMAGE_TAG
 
-            # Stop old containers
+            echo "🧹 Cleaning up old containers..."
             sudo docker stop migraine-app || true
             sudo docker rm migraine-app || true
             sudo docker stop mlflow-ui || true
             sudo docker rm mlflow-ui || true
 
-            # Start MLflow UI
+            echo "📊 Starting MLflow UI..."
             sudo docker run -d \
               --name mlflow-ui \
               -p 5000:5000 \
               $IMAGE_NAME:$IMAGE_TAG \
               mlflow ui --host 0.0.0.0 --port 5000
 
-            # Start Flask App
+            echo "🌐 Starting Flask App..."
             sudo docker run -d \
               --name migraine-app \
               -p 8080:8080 \
