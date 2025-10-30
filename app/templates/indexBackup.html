@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Migraine Type Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --muted:#69707a;
+      --accent:#6c63ff;
+      --success:#2f9e44;
+      --radius:14px;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box;font-family:Inter,system-ui,Arial;}
+    body{background:linear-gradient(180deg,var(--bg),#eef2ff);margin:0;padding:40px;}
+    .wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start}
+    .card{background:var(--card);border-radius:var(--radius);padding:26px;box-shadow:0 8px 30px rgba(38, 43, 77, 0.08)}
+    header{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+    .logo{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#9b8bff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 18px;color:var(--muted);font-size:14px}
+
+    form .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    label{display:block;font-size:13px;color:#334155;margin-bottom:6px}
+    input[type="number"], input[type="text"], select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e6e9ef;background:transparent;font-size:14px}
+    .full{grid-column:1/-1}
+    .actions{display:flex;gap:10px;align-items:center;margin-top:16px}
+    button{background:var(--accent);color:white;padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn-secondary{background:#f2f4ff;color:var(--accent);border:1px solid rgba(108,99,255,0.12)}
+
+    .right{position:relative}
+    .stats{display:flex;flex-direction:column;gap:12px}
+    .stat{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--glass)}
+    .stat strong{font-size:18px}
+    .result{margin-top:18px;padding:12px;border-radius:10px;background:#f8fafc;border:1px dashed #e2e8f0}
+    .hint{font-size:13px;color:var(--muted)}
+
+    footer{grid-column:1/-1;margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media (max-width:980px){.wrap{grid-template-columns:1fr}.right{order:-1}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo">MH</div>
+        <div>
+          <h1>Migraine Type Predictor</h1>
+          <p class="lead">Fill the patient features below (23 inputs). Use numeric values exactly as your dataset encoding.</p>
+        </div>
+      </header>
+
+      <form action="/predict" method="post" autocomplete="off">
+        <div class="grid">
+          <div>
+            <label>Age</label>
+            <input type="number" name="Age" min="0" max="120" step="1" required>
+          </div>
+
+          <div>
+            <label>Duration</label>
+            <input type="number" name="Duration" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Frequency</label>
+            <input type="number" name="Frequency" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Location</label>
+            <input type="number" name="Location" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Character</label>
+            <input type="number" name="Character" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Intensity</label>
+            <input type="number" name="Intensity" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Nausea</label>
+            <input type="number" name="Nausea" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Vomit</label>
+            <input type="number" name="Vomit" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Phonophobia</label>
+            <input type="number" name="Phonophobia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Photophobia</label>
+            <input type="number" name="Photophobia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Visual</label>
+            <input type="number" name="Visual" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Sensory</label>
+            <input type="number" name="Sensory" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Dysphasia</label>
+            <input type="number" name="Dysphasia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Dysarthria</label>
+            <input type="number" name="Dysarthria" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Vertigo</label>
+            <input type="number" name="Vertigo" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Tinnitus</label>
+            <input type="number" name="Tinnitus" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Hypoacusis</label>
+            <input type="number" name="Hypoacusis" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Diplopia</label>
+            <input type="number" name="Diplopia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Defect</label>
+            <input type="number" name="Defect" min="0" step="1" required>
+          </div>
+
+          <div>
+            <label>Ataxia</label>
+            <input type="number" name="Ataxia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Conscience</label>
+            <input type="number" name="Conscience" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>Paresthesia</label>
+            <input type="number" name="Paresthesia" min="0" max="1" step="1" required>
+          </div>
+
+          <div>
+            <label>DPF</label>
+            <input type="number" name="DPF" min="0" step="1" required>
+          </div>
+
+        </div>
+
+        <div class="actions full">
+          <button type="submit">Predict Migraine Type</button>
+          <button type="reset" class="btn-secondary">Reset</button>
+        </div>
+
+        <div class="full" style="margin-top:12px">
+          <p class="hint">Tip: values in this form should match how your model was trained (encoded numeric values). If you trained with label-encoded text values, convert them the same way before predicting.</p>
+        </div>
+
+      </form>
+
+      <footer>Model powered by your RandomForest model • Enter 23 features and click Predict</footer>
+    </div>
+
+    <div class="card right">
+      <div class="stats">
+        <div class="stat">
+          <div style="flex:1">
+            <div style="font-size:13px;color:var(--muted)">Last trained</div>
+            <strong>RandomForestClassifier</strong>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div style="flex:1">
+            <div style="font-size:13px;color:var(--muted)">Sample dataset</div>
+            <strong>Provided Migraine CSV</strong>
+          </div>
+        </div>
+
+        <div class="result">
+          <div style="font-size:13px;color:var(--muted)">Prediction</div>
+          <!-- Flask will replace prediction_text when rendering -->
+          {% if prediction_text %}
+            <div style="margin-top:8px;font-weight:700;color:var(--success);">{{ prediction_text }}</div>
+          {% else %}
+            <div style="margin-top:8px;color:var(--muted);">No prediction yet — submit the form on the left.</div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

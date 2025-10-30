@@ -1,0 +1,10 @@
+artifact_location: file:///home/jerin/Documents/Development/MLopsIA3Project/Migraine-Severity-Prediction/mlruns/976596965976752513/models/m-9e708cc2b5404ad5ab67f8d94f3d7aac/artifacts
+creation_timestamp: 1761838203660
+experiment_id: '976596965976752513'
+last_updated_timestamp: 1761838207200
+model_id: m-9e708cc2b5404ad5ab67f8d94f3d7aac
+model_type: null
+name: model
+source_run_id: f65bbd106e804dbe86075b7d22db5b27
+status: 2
+status_message: null

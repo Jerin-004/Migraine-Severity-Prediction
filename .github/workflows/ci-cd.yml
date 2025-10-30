@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-train-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: jerinstalin004/migraine-severity-prediction
+      IMAGE_TAG: latest
+      APP_PORT: 8080
+      MLFLOW_PORT: 5000
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt mlflow gunicorn
+
+      - name: Train model
+        run: |
+          python src/train_model.py
+          echo "✅ Model trained successfully."
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+          docker push $IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo apt-get update -y
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo docker pull $IMAGE_NAME:$IMAGE_TAG
+
+            # Stop old containers
+            sudo docker stop migraine-app || true
+            sudo docker rm migraine-app || true
+            sudo docker stop mlflow-ui || true
+            sudo docker rm mlflow-ui || true
+
+            # Start MLflow UI
+            sudo docker run -d \
+              --name mlflow-ui \
+              -p 5000:5000 \
+              $IMAGE_NAME:$IMAGE_TAG \
+              mlflow ui --host 0.0.0.0 --port 5000
+
+            # Start Flask App
+            sudo docker run -d \
+              --name migraine-app \
+              -p 8080:8080 \
+              $IMAGE_NAME:$IMAGE_TAG
+
+            echo "✅ Flask App (8080) and MLflow UI (5000) running successfully."

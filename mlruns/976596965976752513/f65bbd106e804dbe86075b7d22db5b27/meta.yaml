@@ -1,0 +1,14 @@
+artifact_uri: file:///home/jerin/Documents/Development/MLopsIA3Project/Migraine-Severity-Prediction/mlruns/976596965976752513/f65bbd106e804dbe86075b7d22db5b27/artifacts
+end_time: 1761838207203
+entry_point_name: ''
+experiment_id: '976596965976752513'
+lifecycle_stage: active
+run_id: f65bbd106e804dbe86075b7d22db5b27
+run_name: silent-rat-647
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761838203425
+status: 3
+tags: []
+user_id: jerin

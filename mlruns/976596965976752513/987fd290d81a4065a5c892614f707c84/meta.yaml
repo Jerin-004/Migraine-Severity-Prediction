@@ -1,0 +1,14 @@
+artifact_uri: file:///home/jerin/Documents/Development/MLopsIA3Project/Migraine-Severity-Prediction/mlruns/976596965976752513/987fd290d81a4065a5c892614f707c84/artifacts
+end_time: 1761838222254
+entry_point_name: ''
+experiment_id: '976596965976752513'
+lifecycle_stage: active
+run_id: 987fd290d81a4065a5c892614f707c84
+run_name: treasured-owl-295
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761838218570
+status: 3
+tags: []
+user_id: jerin

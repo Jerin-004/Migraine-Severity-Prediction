@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migraine Type Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg1: #eef2ff;
+      --bg2: #cfd9ff;
+      --card: rgba(255, 255, 255, 0.75);
+      --muted: #6b7280;
+      --accent: #6c63ff;
+      --accent-light: #a29bff;
+      --success: #16a34a;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Inter", system-ui, Arial;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      margin: 0;
+      padding: 40px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 45px rgba(108, 99, 255, 0.15);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 22px;
+      box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #1e1e2f;
+    }
+
+    p.lead {
+      margin: 6px 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    form .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #374151;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    select,
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #e0e4f0;
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    select:focus,
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background: var(--accent);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(108, 99, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--accent);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: #f2f4ff;
+    }
+
+    .right {
+      position: relative;
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: 0.2s ease;
+    }
+
+    .stat:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .stat strong {
+      font-size: 16px;
+      color: #111827;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(240, 245, 255, 0.7);
+      border: 1px dashed #c7d2fe;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .result div {
+      transition: color 0.3s ease;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+      .right {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo">MH</div>
+        <div>
+          <h1>Migraine Type Predictor</h1>
+          <p class="lead">Enter patient details — smart mapping auto-adjusts values for the model.</p>
+        </div>
+      </header>
+
+      <form id="migraineForm" action="/predict" method="post" autocomplete="off">
+        <div class="grid">
+          <div><label>Age</label><input type="number" name="Age" min="0" max="120" required></div>
+          <div><label>Duration</label><select name="Duration" required>
+            <option value="1">Short</option>
+            <option value="2">Medium</option>
+            <option value="3">Long</option>
+          </select></div>
+          <div><label>Frequency</label><select name="Frequency" required>
+            <option value="1">Rare</option>
+            <option value="3">Occasional</option>
+            <option value="5">Frequent</option>
+          </select></div>
+          <div><label>Location</label><select name="Location" required>
+            <option value="1">Single-side</option>
+            <option value="2">Both</option>
+          </select></div>
+          <div><label>Character</label><select name="Character" required>
+            <option value="1">Throbbing</option>
+            <option value="2">Pressure</option>
+            <option value="3">Stabbing</option>
+          </select></div>
+          <div><label>Intensity</label><select name="Intensity" required>
+            <option value="1">Mild</option>
+            <option value="2">Moderate</option>
+            <option value="3">Severe</option>
+          </select></div>
+
+          <script>
+            const binaryFields = ['Nausea','Vomit','Phonophobia','Photophobia','Visual','Sensory','Dysphasia','Dysarthria','Vertigo','Tinnitus','Hypoacusis','Diplopia','Defect','Ataxia','Conscience','Paresthesia','DPF'];
+            binaryFields.forEach(f=>{
+              document.write(`<div><label>${f}</label><select name="${f}" required><option value='1'>Yes</option><option value='0'>No</option></select></div>`);
+            });
+          </script>
+        </div>
+
+        <div class="actions full">
+          <button type="submit">🔍 Predict</button>
+          <button type="button" class="btn-secondary" onclick="clearForm()">🧹 Clear</button>
+          <button type="button" class="btn-secondary" onclick="fillTest('positive')">✨ Auto-Fill Positive</button>
+          <button type="button" class="btn-secondary" onclick="fillTest('negative')">⚙️ Auto-Fill Negative</button>
+        </div>
+      </form>
+
+      <footer>🔬 Powered by RandomForestClassifier • 23 input features</footer>
+    </div>
+
+    <div class="card right">
+      <div class="stats">
+        <div class="stat"><strong>RandomForestClassifier</strong> <span>Last trained model</span></div>
+        <div class="stat"><strong>Migraine CSV Dataset</strong> <span>Sample data used</span></div>
+        <div class="result">
+          {% if prediction_text %}
+            <div style="color:var(--success);">{{ prediction_text }}</div>
+          {% else %}
+            <div style="color:var(--muted);">No prediction yet — fill form to predict.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function clearForm() { document.getElementById("migraineForm").reset(); }
+
+    function fillTest(type) {
+      const pos = {Age:30,Duration:1,Frequency:5,Location:1,Character:1,Intensity:2,Nausea:1,Vomit:0,Phonophobia:1,Photophobia:1,Visual:1,Sensory:2,Dysphasia:0,Dysarthria:0,Vertigo:0,Tinnitus:0,Hypoacusis:0,Diplopia:0,Defect:0,Ataxia:0,Conscience:0,Paresthesia:0,DPF:0};
+      const neg = {Age:49,Duration:1,Frequency:1,Location:1,Character:1,Intensity:3,Nausea:1,Vomit:0,Phonophobia:1,Photophobia:1,Visual:0,Sensory:0,Dysphasia:0,Dysarthria:0,Vertigo:0,Tinnitus:0,Hypoacusis:0,Diplopia:0,Defect:0,Ataxia:0,Conscience:0,Paresthesia:0,DPF:0};
+      const data = type === "positive" ? pos : neg;
+      for (let key in data) {
+        let el = document.querySelector(`[name='${key}']`);
+        if (el) el.value = data[key];
+      }
+    }
+  </script>
+</body>
+</html>
