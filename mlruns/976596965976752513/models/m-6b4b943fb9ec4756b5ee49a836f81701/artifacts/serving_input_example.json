@@ -1,0 +1,56 @@
+{
+  "dataframe_split": {
+    "columns": [
+      "Age",
+      "Duration",
+      "Frequency",
+      "Location",
+      "Character",
+      "Intensity",
+      "Nausea",
+      "Vomit",
+      "Phonophobia",
+      "Photophobia",
+      "Visual",
+      "Sensory",
+      "Dysphasia",
+      "Dysarthria",
+      "Vertigo",
+      "Tinnitus",
+      "Hypoacusis",
+      "Diplopia",
+      "Defect",
+      "Ataxia",
+      "Conscience",
+      "Paresthesia",
+      "DPF"
+    ],
+    "data": [
+      [
+        45,
+        3,
+        5,
+        1,
+        1,
+        3,
+        1,
+        0,
+        1,
+        1,
+        2,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+}

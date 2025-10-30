@@ -1,0 +1,48 @@
+artifact_path: file:///home/jerin/Documents/Development/MLopsIA3Project/Migraine-Severity-Prediction/mlruns/976596965976752513/models/m-6b4b943fb9ec4756b5ee49a836f81701/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+is_signature_from_type_hint: false
+mlflow_version: 3.5.1
+model_id: m-6b4b943fb9ec4756b5ee49a836f81701
+model_size_bytes: 1467828
+model_uuid: m-6b4b943fb9ec4756b5ee49a836f81701
+prompts: null
+run_id: 48e8dddd83944d34ad4f987da11e0228
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "long", "name": "Age", "required": true}, {"type": "long", "name":
+    "Duration", "required": true}, {"type": "long", "name": "Frequency", "required":
+    true}, {"type": "long", "name": "Location", "required": true}, {"type": "long",
+    "name": "Character", "required": true}, {"type": "long", "name": "Intensity",
+    "required": true}, {"type": "long", "name": "Nausea", "required": true}, {"type":
+    "long", "name": "Vomit", "required": true}, {"type": "long", "name": "Phonophobia",
+    "required": true}, {"type": "long", "name": "Photophobia", "required": true},
+    {"type": "long", "name": "Visual", "required": true}, {"type": "long", "name":
+    "Sensory", "required": true}, {"type": "long", "name": "Dysphasia", "required":
+    true}, {"type": "long", "name": "Dysarthria", "required": true}, {"type": "long",
+    "name": "Vertigo", "required": true}, {"type": "long", "name": "Tinnitus", "required":
+    true}, {"type": "long", "name": "Hypoacusis", "required": true}, {"type": "long",
+    "name": "Diplopia", "required": true}, {"type": "long", "name": "Defect", "required":
+    true}, {"type": "long", "name": "Ataxia", "required": true}, {"type": "long",
+    "name": "Conscience", "required": true}, {"type": "long", "name": "Paresthesia",
+    "required": true}, {"type": "long", "name": "DPF", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-10-30 16:40:12.387124'

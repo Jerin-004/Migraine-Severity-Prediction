@@ -1,0 +1,14 @@
+artifact_uri: file:///home/jerin/Documents/Development/MLopsIA3Project/Migraine-Severity-Prediction/mlruns/976596965976752513/48e8dddd83944d34ad4f987da11e0228/artifacts
+end_time: 1761842415940
+entry_point_name: ''
+experiment_id: '976596965976752513'
+lifecycle_stage: active
+run_id: 48e8dddd83944d34ad4f987da11e0228
+run_name: nimble-smelt-209
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761842412150
+status: 3
+tags: []
+user_id: jerin
