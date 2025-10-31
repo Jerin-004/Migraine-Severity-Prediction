@@ -66,10 +66,11 @@ jobs:
             sudo docker rm mlflow-ui || true
 
             echo "📊 Starting MLflow UI..."
-            sudo docker run -d --name mlflow-ui -p 5000:5000 $IMAGE_NAME:$IMAGE_TAG mlflow ui --host 0.0.0.0 --port 5000
+            sudo docker run -d --name mlflow-ui -p 5000:5000 --entrypoint "mlflow" jerinstalin004/migraine-severity-prediction:latest ui --host 0.0.0.0 --port 5000 --serve-artifacts --allowed-hosts '*'
+
 
             echo "🌐 Starting Flask App..."
             sudo docker run -d --name migraine-app -p 8080:8080 $IMAGE_NAME:$IMAGE_TAG
 
-            
+
             echo "✅ Flask App (8080) and MLflow UI (5000) running successfully."
